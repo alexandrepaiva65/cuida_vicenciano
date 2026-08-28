@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowRight, CheckCircle2, Camera, ListChecks, MapPin } from "lucide-react";
 
-import heroImagem from "@/assets/hero-sao-vicente.jpg";
+import heroImagem from "@/assets/igrajaSV.jpeg";
 import { Button } from "@/components/ui/button";
 import { ProblemaCardPublico } from "@/components/ProblemaCard";
 import { StatCard } from "@/components/StatCard";
