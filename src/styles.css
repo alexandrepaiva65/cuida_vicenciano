@@ -1,0 +1,146 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * ============================================================
+ * CUIDA VICENCIANO — Sistema de design
+ * ============================================================
+ * Todos os valores de cor, sombra e raio ficam centralizados aqui.
+ * Para mudar a identidade visual do sistema inteiro, altere apenas
+ * as variáveis em :root. Nunca use cores fixas nos componentes.
+ *
+ * Paleta: verde institucional (cuidado com a cidade) + âmbar (atenção).
+ * Todas as cores usam o formato oklch.
+ * ============================================================
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-soft: var(--primary-soft);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-soft: var(--accent-soft);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+
+  /* Cores de status das ocorrências */
+  --color-recebido: var(--recebido);
+  --color-recebido-soft: var(--recebido-soft);
+  --color-analise: var(--analise);
+  --color-analise-soft: var(--analise-soft);
+  --color-andamento: var(--andamento);
+  --color-andamento-soft: var(--andamento-soft);
+  --color-resolvido: var(--resolvido);
+  --color-resolvido-soft: var(--resolvido-soft);
+  --color-cancelado: var(--cancelado);
+  --color-cancelado-soft: var(--cancelado-soft);
+
+  --shadow-card: var(--shadow-card);
+  --shadow-elevated: var(--shadow-elevated);
+  --shadow-brand: var(--shadow-brand);
+}
+
+:root {
+  --radius: 0.75rem;
+
+  /* Base */
+  --background: oklch(0.985 0.002 106);
+  --foreground: oklch(0.21 0.008 285);
+  --surface: oklch(0.968 0.004 106);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.21 0.008 285);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.21 0.008 285);
+
+  /* Verde institucional */
+  --primary: oklch(0.35 0.077 164);
+  --primary-foreground: oklch(0.985 0.004 106);
+  --primary-soft: oklch(0.95 0.025 164);
+
+  --secondary: oklch(0.94 0.006 106);
+  --secondary-foreground: oklch(0.28 0.01 285);
+
+  --muted: oklch(0.955 0.004 106);
+  --muted-foreground: oklch(0.52 0.012 285);
+
+  /* Âmbar de atenção */
+  --accent: oklch(0.55 0.135 62);
+  --accent-foreground: oklch(0.99 0.004 106);
+  --accent-soft: oklch(0.955 0.04 80);
+
+  --destructive: oklch(0.55 0.2 27);
+  --destructive-foreground: oklch(0.99 0.004 106);
+  --success: oklch(0.53 0.115 156);
+  --success-foreground: oklch(0.99 0.004 106);
+
+  --border: oklch(0.9 0.005 106);
+  --input: oklch(0.9 0.005 106);
+  --ring: oklch(0.35 0.077 164);
+
+  /* Status */
+  --recebido: oklch(0.48 0.02 265);
+  --recebido-soft: oklch(0.94 0.008 265);
+  --analise: oklch(0.53 0.135 62);
+  --analise-soft: oklch(0.955 0.045 80);
+  --andamento: oklch(0.48 0.09 205);
+  --andamento-soft: oklch(0.945 0.03 205);
+  --resolvido: oklch(0.47 0.11 158);
+  --resolvido-soft: oklch(0.945 0.04 158);
+  --cancelado: oklch(0.52 0.17 27);
+  --cancelado-soft: oklch(0.95 0.025 27);
+
+  --shadow-card: 0 1px 2px 0 oklch(0.21 0.008 285 / 0.05);
+  --shadow-elevated: 0 12px 32px -12px oklch(0.21 0.008 285 / 0.18);
+  --shadow-brand: 0 12px 28px -14px oklch(0.35 0.077 164 / 0.45);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    letter-spacing: -0.02em;
+  }
+}
