@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable/index";
 import { useAuth } from "@/hooks/useAuth";
 
 const buscaSchema = z.object({
@@ -34,6 +33,16 @@ export const Route = createFileRoute("/auth")({
   component: Auth,
 });
 
+function getAppUrl() {
+  const configuredUrl =
+    import.meta.env.VITE_PUBLIC_APP_URL ||
+    import.meta.env.VITE_APP_URL ||
+    import.meta.env.VITE_SITE_URL ||
+    window.location.origin;
+
+  return configuredUrl.replace(/\/$/, "");
+}
+
 function Auth() {
   const { modo } = Route.useSearch();
   const navigate = useNavigate();
@@ -53,14 +62,23 @@ function Auth() {
   }
 
   async function entrarComGoogle() {
-    const resultado = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin,
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: getAppUrl(),
+      },
     });
-    if (resultado.error) {
+
+    if (error) {
       toast.error("Não foi possível entrar com o Google.");
       return;
     }
-    if (resultado.redirected) return;
+
+    if (data.url) {
+      window.location.href = data.url;
+      return;
+    }
+
     navigate({ to: "/dashboard", replace: true });
   }
 
@@ -78,7 +96,7 @@ function Auth() {
           password: senha,
           options: {
             data: { nome: nome.trim() },
-            emailRedirectTo: `${window.location.origin}/dashboard`,
+            emailRedirectTo: `${getAppUrl()}/dashboard`,
           },
         });
         if (error) throw error;
@@ -89,7 +107,7 @@ function Auth() {
 
       if (modo === "recuperar") {
         const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
-          redirectTo: `${window.location.origin}/redefinir-senha`,
+          redirectTo: `${getAppUrl()}/redefinir-senha`,
         });
         if (error) throw error;
         toast.success("Enviamos um link de redefinição para o seu e-mail.");
